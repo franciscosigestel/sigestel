@@ -1,0 +1,359 @@
+﻿@model IEnumerable<sigestel.Models.Empresas>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cif)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaBaja)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaAlta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaModif)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fax)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoOperador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Serie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Num)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Num2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreBanco)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumCuenta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaEstado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CosteServicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Franquicia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FranquiciaMax)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CabeceraColectivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdAsesor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelefonoAsesor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MargenColectivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SufijoNorma19)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdAgente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaDesdeAgente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaHastaAgente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CuentaIva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CuentaBase)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AutogestionProlin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AutogestionServicios)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AutogestionTerminales)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AutogestionIncidencias)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AutogestionSms)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdGrupo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCatalogo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PorcentajeDescuentoColectivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MargenTerminal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FranquiciaVoz)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreAdminLegal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DniAdminLegal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RefOrdenDomiciliacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaOrdenDomiciliacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreComercial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlanPrecios)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdcVinculada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailFacturacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PorcentajeDtoCatalogoOp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Serie3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Num3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SerieR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FormaPago)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cif)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaBaja)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaAlta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaModif)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fax)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoOperador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Serie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Num)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Num2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreBanco)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumCuenta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaEstado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CosteServicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Franquicia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FranquiciaMax)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CabeceraColectivo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdAsesor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelefonoAsesor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MargenColectivo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SufijoNorma19)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdAgente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaDesdeAgente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaHastaAgente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CuentaIva)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CuentaBase)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AutogestionProlin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AutogestionServicios)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AutogestionTerminales)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AutogestionIncidencias)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AutogestionSms)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdGrupo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCatalogo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PorcentajeDescuentoColectivo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MargenTerminal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FranquiciaVoz)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreAdminLegal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DniAdminLegal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RefOrdenDomiciliacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaOrdenDomiciliacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreComercial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlanPrecios)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdcVinculada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailFacturacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PorcentajeDtoCatalogoOp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Serie3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Num3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SerieR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FormaPago)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

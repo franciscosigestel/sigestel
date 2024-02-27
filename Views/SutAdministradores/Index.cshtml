@@ -1,0 +1,167 @@
+﻿@model IEnumerable<sigestel.Models.SutAdministradores>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreCompleto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Usuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Clave)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaAlta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaBaja)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nif)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaEstado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReenvioEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaUltimaConexion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConexionesRealizadas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaAceptacionRgpd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IpaceptacionRgpd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DatosNavegadorRgpd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailVerificado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelefonoAgente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Idagente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PerfilUsuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AsociacionPerfilUsuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdClienteNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPerfilNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCompleto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Clave)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaAlta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaBaja)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nif)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaEstado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReenvioEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaUltimaConexion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConexionesRealizadas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaAceptacionRgpd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IpaceptacionRgpd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatosNavegadorRgpd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailVerificado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelefonoAgente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Idagente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PerfilUsuario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AsociacionPerfilUsuario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdClienteNavigation.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPerfilNavigation.IdPerfil)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdAdministrador">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdAdministrador">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdAdministrador">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

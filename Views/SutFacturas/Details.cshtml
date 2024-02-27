@@ -1,0 +1,270 @@
+﻿@model sigestel.Models.SutFacturas
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>SutFacturas</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NumFactura)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NumFactura)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BaseImponible)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BaseImponible)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Iva)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Iva)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Impuesto)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Impuesto)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalFactura)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TotalFactura)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaFactura)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaFactura)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ImportePuntos)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ImportePuntos)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ImporteBruto)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ImporteBruto)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalDescuentos)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TotalDescuentos)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ciclo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ciclo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TipoFactura)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TipoFactura)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NombreBanco)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NombreBanco)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NumCuenta)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NumCuenta)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FactOtm)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FactOtm)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaInicio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaInicio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaFin)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaFin)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Direccion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Direccion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CodPostal)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CodPostal)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Poblacion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Poblacion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Provincia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Provincia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EstadoNorma19)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EstadoNorma19)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaCargo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaCargo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FicheroNorma19)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FicheroNorma19)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EnlaceGenerado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EnlaceGenerado)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Generacion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Generacion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Contabilizada)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Contabilizada)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdProceso)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdProceso)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdColectivo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdColectivo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdClienteUsuario)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdClienteUsuario)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Observaciones)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Observaciones)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TmPreciocoste1)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TmPreciocoste1)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TmPreciocoste2)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TmPreciocoste2)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TmPrecioventa)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TmPrecioventa)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TmImporteacuenta)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TmImporteacuenta)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TmImportecomision)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TmImportecomision)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TmModoFin)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TmModoFin)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TmMesesPlazo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TmMesesPlazo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ImportePagos)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ImportePagos)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PerfilUsuario)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PerfilUsuario)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdAsociacionPerfilUsuario)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdAsociacionPerfilUsuario)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ImportePtePago)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ImportePtePago)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ComentariosPagos)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ComentariosPagos)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.IdFactura">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

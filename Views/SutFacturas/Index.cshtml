@@ -1,0 +1,120 @@
+﻿@using sigestel.Tools;
+@model Paginacion<SutFacturas>
+
+@{
+    ViewData["Title"] = "Facturas";
+}
+<div class="container my-3">
+
+    <h1>Listado de facturas</h1>
+
+    <div class="d-flex align-items-center">
+        <div class="p-3 ml-auto">
+            <p>
+                <a asp-action="Create" class="btn btn-redondo">+</a>
+            </p>
+        </div>
+        <div class="p-3">
+            <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
+                <div class="form-group mr-2">
+                    <label for="buscar" class="mr-2">Buscar:</label>
+                    <input type="text" id="buscar" name="buscar" value="@ViewData["FiltroActual"]" class="form-control" />
+                </div>
+                <div class="form-group mr-2">
+                    <button type="submit" value="" class="btn btn-sm sigestelprimario-fnt" /><i class="bi bi-search"></i></button>
+                </div>
+            </form>
+        </div>
+        <div class="p-3">
+            <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
+                <div class="form-group mr-2">
+                    <label for="cantidadRegistros" class="mr-2">Cantidad de registros:</label>
+                    <select name="cantidadRegistros" class="form-control mr-2">
+                        <option value="10">10</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <div class="form-group mr-2 align-self-sm-end">
+                    <button type="submit" value="Actualizar" class="btn btn-sm sigestelprimario-fnt" /><i class="bi bi-eye-fill"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <div class="card">
+            <table class="table table-success table-striped tabla-crud">
+                <thead>
+                    <tr>
+                        <th>
+                            <a asp-action="Index" asp-route-ordenActual="@ViewData["FiltroNombre"]"
+                               asp-route-filtroActual="@ViewData["FiltroActual"]">
+                                Nombre
+                            </a>
+                        </th>
+                        <th>
+                            <a asp-action="Index" asp-route-ordenActual="@ViewData["FiltroFecha"]"
+                               asp-route-filtroActual="@ViewData["FiltroActual"]">
+                                Fecha
+                            </a>
+                        </th>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Opciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NombreBanco)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FechaFactura)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdFactura)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" class="btn btn-success bi bi-pencil" asp-route-id="@item.IdFactura"></a> |
+                                <a asp-action="Details" class="btn btn-info bi bi-eye" asp-route-id="@item.IdFactura"></a> |
+                                <a asp-action="Delete" class="btn btn-outline-danger bi bi-trash" asp-route-id="@item.IdFactura"></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @{
+        var anteriordeshabilitado = !Model.PaginasAnteriores ? "disabled" : "";
+        var siguientedeshabilitado = !Model.PaginasPosteriores ? "disabled" : "";
+    }
+
+    <div>
+        <a asp-action="Index" asp-route-ordenActual="@ViewData["OrdenActual"]"
+           asp-route-numpag="@(Model.PaginaInicio - 1)" asp-route-filtroActual="@ViewData["FiltroActual"]"
+           asp-route-cantidadRegistros="@ViewData["CantidadRegistros"]"
+           class="btn btn-primary sigestelprimario-fnt @anteriordeshabilitado">Anterior</a>
+
+
+        @for (var i = Math.Max(1, Model.PaginaInicio - 2); i <= Math.Min(Model.PaginasTotales, Model.PaginaInicio + 2); i++)
+        {
+            var paginaactiva = (i == Model.PaginaInicio) ? "active" : "";
+            <a asp-action="Index" asp-route-ordenActual="@ViewData["OrdenActual"]" asp-route-numpag="@i"
+               asp-route-filtroActual="@ViewData["FiltroActual"]" class="btn btn-primary sigestelprimario-fnt @paginaactiva">
+                @i
+            </a>
+        }
+
+        <a asp-action="Index" asp-route-ordenActual="@ViewData["OrdenActual"]"
+           asp-route-numpag="@(Model.PaginaInicio + 1)" asp-route-filtroActual="@ViewData["FiltroActual"]"
+           asp-route-cantidadRegistros="@ViewData["CantidadRegistros"]"
+           class="btn btn-primary sigestelprimario-fnt @siguientedeshabilitado">Siguiente</a>
+    </div>
+</div>

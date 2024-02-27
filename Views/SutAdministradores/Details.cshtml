@@ -1,0 +1,156 @@
+﻿@model sigestel.Models.SutAdministradores
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>SutAdministradores</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NombreCompleto)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NombreCompleto)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Usuario)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Usuario)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Clave)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Clave)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaAlta)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaAlta)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaBaja)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaBaja)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Telefono)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Telefono)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nif)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nif)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaEstado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaEstado)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ReenvioEmail)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReenvioEmail)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaUltimaConexion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaUltimaConexion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ConexionesRealizadas)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ConexionesRealizadas)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaAceptacionRgpd)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaAceptacionRgpd)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IpaceptacionRgpd)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IpaceptacionRgpd)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DatosNavegadorRgpd)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DatosNavegadorRgpd)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EmailVerificado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EmailVerificado)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TelefonoAgente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TelefonoAgente)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Idagente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Idagente)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PerfilUsuario)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PerfilUsuario)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AsociacionPerfilUsuario)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AsociacionPerfilUsuario)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdClienteNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdClienteNavigation.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdPerfilNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdPerfilNavigation.IdPerfil)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.IdAdministrador">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
