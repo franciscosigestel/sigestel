@@ -1,9 +1,11 @@
+using ClosedXML.Excel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using sigestel.Models;
+using System.Data;
 using System.Diagnostics;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -48,5 +50,6 @@ namespace sigestel.Controllers
             // Redirige al método de IniciarSesion en el controlador "Inicio"
             return RedirectToAction("IniciarSesion", "Inicio");
         }
+
     }
 }

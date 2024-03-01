@@ -3,18 +3,16 @@
 
 @{
     ViewData["Title"] = "Facturas";
+    int numpag = ViewBag.Numpag != null ? (int)ViewBag.Numpag : 1;
+    int cantidadRegistros = ViewBag.CantidadRegistros != null ? (int)ViewBag.CantidadRegistros : 6;
 }
+
 <div class="container my-3">
 
-    <h1>Listado de facturas</h1>
+    <h1 class="text-center">Listado de facturas</h1>
 
-    <div class="d-flex align-items-center">
-        <div class="p-3 ml-auto">
-            <p>
-                <a asp-action="Create" class="btn btn-redondo">+</a>
-            </p>
-        </div>
-        <div class="p-3">
+    <div class="row mb-3 justify-content-center">
+        <div class="col-md-4">
             <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
                 <div class="form-group mr-2">
                     <label for="buscar" class="mr-2">Buscar:</label>
@@ -23,9 +21,16 @@
                 <div class="form-group mr-2">
                     <button type="submit" value="" class="btn btn-sm sigestelprimario-fnt" /><i class="bi bi-search"></i></button>
                 </div>
+                <!--  Codigo chapucero para guardar numeracion y registros en cada formulario-->
+                <input type="hidden" name="numpag" value=" @numpag" />
+                <input type="hidden" name="cantidadRegistros" value="@cantidadRegistros" />
+                <input type="hidden" name="ordenActual" value="@ViewData["OrdenActual"]" />
+                <input type="hidden" name="filtroActual" value="@ViewData["FiltroActual"]" />
+                <input type="hidden" name="selectedBanco" value="@ViewData["BancoSeleccionado"]" />
+                <!-- ------------------------------------------------------------------------- -->
             </form>
         </div>
-        <div class="p-3">
+        <div class="col-md-4">
             <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
                 <div class="form-group mr-2">
                     <label for="cantidadRegistros" class="mr-2">Cantidad de registros:</label>
@@ -38,6 +43,90 @@
                 <div class="form-group mr-2 align-self-sm-end">
                     <button type="submit" value="Actualizar" class="btn btn-sm sigestelprimario-fnt" /><i class="bi bi-eye-fill"></i></button>
                 </div>
+
+                <!--  Codigo chapucero para guardar numeracion y registros en cada formulario-->
+                <input type="hidden" name="numpag" value=" @numpag" />
+                <input type="hidden" name="cantidadRegistros" value="@cantidadRegistros" />
+                <input type="hidden" name="ordenActual" value="@ViewData["OrdenActual"]" />
+                <input type="hidden" name="filtroActual" value="@ViewData["FiltroActual"]" />
+                <input type="hidden" name="selectedBanco" value="@ViewData["BancoSeleccionado"]" />
+                <!-- ------------------------------------------------------------------------- -->
+            </form>
+        </div>
+        <div class="col-md-4">
+            <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
+                <div class="form-group mr-2">
+                    <label for="cantidadRegistros" class="mr-2">Bancos:</label>
+                    <select name="SelectedBanco" class="form-control mr-2" onchange="this.form.submit()">
+                        <option value="">Todos los bancos</option>
+                        @{
+                            //aqui cogemos los text de los bancos y como coinciden con los de bdd pues le pasamos el banco 
+                            // y filtramos
+                            var bancos = ViewData["Bancos"] as SelectList;
+                            foreach (var item in bancos)
+                            {
+                                <option value="@item.Text">@item.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <!--  Codigo chapucero para guardar numeracion y registros en cada formulario-->
+                <input type="hidden" name="numpag" value=" @numpag" />
+                <input type="hidden" name="cantidadRegistros" value="@cantidadRegistros" />
+                <input type="hidden" name="ordenActual" value="@ViewData["OrdenActual"]" />
+                <input type="hidden" name="filtroActual" value="@ViewData["FiltroActual"]" />
+                <input type="hidden" name="selectedBanco" value="@ViewData["BancoSeleccionado"]" />
+                <!-- ------------------------------------------------------------------------- -->
+            </form>
+        </div>
+
+        <div class="col-md-4">
+            <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
+                <div class="form-group mr-2">
+                    <label for="cantidadRegistros" class="mr-2">Clientes</label>
+                    <select name="SelectedCliente" class="form-control mr-2" onchange="this.form.submit()">
+                        <option value="">Tipo cliente</option>
+                        @{
+                            //aqui cogemos los text de los bancos y como coinciden con los de bdd pues le pasamos el banco
+                            // y filtramos
+                            var clientes = ViewData["Clientes"] as SelectList;
+                            foreach (var item in clientes)
+                            {
+                                <option value="@item.Text">@item.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <!--  Codigo chapucero para guardar numeracion y registros en cada formulario-->
+                <input type="hidden" name="numpag" value=" @numpag" />
+                <input type="hidden" name="cantidadRegistros" value="@cantidadRegistros" />
+                <input type="hidden" name="ordenActual" value="@ViewData["OrdenActual"]" />
+                <input type="hidden" name="filtroActual" value="@ViewData["FiltroActual"]" />
+                <input type="hidden" name="selectedBanco" value="@ViewData["BancoSeleccionado"]" />
+                <!-- ------------------------------------------------------------------------- -->
+            </form>
+        </div>
+
+        <div class="col-md-5">
+            <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
+                <div class="form-group mr-2">
+                    <label for="fechadesde" class="mr-2">Desde:</label>
+                    <input type="date" id="fechadesde" name="fechadesde" value="@ViewData["FiltroActual"]" class="form-control" />
+                    <label for="fechahasta" class="mr-2">Hasta:</label>
+                    <input type="date" id="fechahasta" name="fechahasta" value="@ViewData["FiltroActual"]" class="form-control" />
+                </div>
+                <div class="form-group mr-2">
+                    <button type="submit" value="" class="btn btn-sm sigestelprimario-fnt" /><i class="bi bi-search"></i></button>
+                </div>
+                <!--  Codigo chapucero para guardar numeracion y registros en cada formulario-->
+                <input type="hidden" name="numpag" value=" @numpag" />
+                <input type="hidden" name="cantidadRegistros" value="@cantidadRegistros" />
+                <input type="hidden" name="ordenActual" value="@ViewData["OrdenActual"]" />
+                <input type="hidden" name="filtroActual" value="@ViewData["FiltroActual"]" />
+                <input type="hidden" name="selectedBanco" value="@ViewData["BancoSeleccionado"]" />
+                <!-- ------------------------------------------------------------------------- -->
             </form>
         </div>
     </div>
@@ -51,6 +140,11 @@
                                asp-route-filtroActual="@ViewData["FiltroActual"]">
                                 Nombre
                             </a>
+                        </th>
+                        <th>
+                            
+                                Cliente
+                            
                         </th>
                         <th>
                             <a asp-action="Index" asp-route-ordenActual="@ViewData["FiltroFecha"]"
@@ -74,6 +168,9 @@
                                 @Html.DisplayFor(modelItem => item.NombreBanco)
                             </td>
                             <td>
+                                @Html.DisplayFor(modelItem => item.TipoFactura)
+                            </td>
+                            <td>
                                 @Html.DisplayFor(modelItem => item.FechaFactura)
                             </td>
                             <td>
@@ -95,8 +192,9 @@
         var anteriordeshabilitado = !Model.PaginasAnteriores ? "disabled" : "";
         var siguientedeshabilitado = !Model.PaginasPosteriores ? "disabled" : "";
     }
-
-    <div>
+    <div class="row justify-content-center mt-3">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
         <a asp-action="Index" asp-route-ordenActual="@ViewData["OrdenActual"]"
            asp-route-numpag="@(Model.PaginaInicio - 1)" asp-route-filtroActual="@ViewData["FiltroActual"]"
            asp-route-cantidadRegistros="@ViewData["CantidadRegistros"]"
@@ -116,5 +214,18 @@
            asp-route-numpag="@(Model.PaginaInicio + 1)" asp-route-filtroActual="@ViewData["FiltroActual"]"
            asp-route-cantidadRegistros="@ViewData["CantidadRegistros"]"
            class="btn btn-primary sigestelprimario-fnt @siguientedeshabilitado">Siguiente</a>
+
+            </ul>
+        </nav>
+    </div>
+    <div class="row justify-content-center mt-3">
+                <form asp-controller="SutFacturas" asp-action="Index" method="get" class="form-inline" onsubmit="return actualizarFormulario(1, 10)">
+            <button type="submit" name="exportarExcel" value="exportarExcel">Exportar a Excel</button>
+            <input type="hidden" name="numpag" value=" @numpag" />
+            <input type="hidden" name="cantidadRegistros" value="@cantidadRegistros" />
+        </form>
+            
+        </div>
     </div>
 </div>
+

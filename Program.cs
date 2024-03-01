@@ -18,6 +18,26 @@ builder.Services.AddDbContext<MaxDbContext>(options =>
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 //Agregar servicio de autentificación
+builder.Services.AddDistributedMemoryCache(); 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(20); // La sesión acabará después de 20 minutos de inactividad
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+//Función para deshabilitar el caché y que alguien que se ha salido no pueda volver a una vista anterior
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add(
+        new ResponseCacheAttribute
+        {
+            NoStore = true,
+            Location = ResponseCacheLocation.None,
+        }
+        );
+});
+
+
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -26,17 +46,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.ExpireTimeSpan = TimeSpan.FromMinutes(20); //La cookie durará 20 minutos
     });
 
-//Función para deshabilitar el caché y que alguien que se ha salido no pueda volver a una vista anterior
-builder.Services.AddControllersWithViews(options =>
-{
-    options.Filters.Add(
-        new ResponseCacheAttribute 
-        {
-            NoStore = true,
-            Location = ResponseCacheLocation.None,
-        }
-        );
-});
 
 
 var app = builder.Build();
@@ -54,9 +63,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//Habilitar sesión
+app.UseSession();
+
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+
 
 //Dice donde empieza la aplicación (en este caso en el iniciar sesion)
 app.MapControllerRoute(

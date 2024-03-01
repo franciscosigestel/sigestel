@@ -54,3 +54,14 @@ body {
     overflow: hidden; /* Para que los bordes redondeados se apliquen correctamente */
 }
 
+.cardpersonalizada{
+    border-radius: 50px;
+}
+
+.label-form {
+    display: inline-block;
+    width: 80px;
+}
+filtros{
+    background-color: darkseagreen;
+}

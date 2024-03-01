@@ -7,6 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Tools\NewFolder\**" />
+    <Content Remove="Tools\NewFolder\**" />
+    <EmbeddedResource Remove="Tools\NewFolder\**" />
+    <None Remove="Tools\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Tools\GenerarExcel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\js\animaciones.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.102.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2">
