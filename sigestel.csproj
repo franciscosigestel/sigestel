@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="Tools\NewFolder\**" />
+    <Compile Remove="Tools\Paginador\**" />
     <Content Remove="Tools\NewFolder\**" />
+    <Content Remove="Tools\Paginador\**" />
     <EmbeddedResource Remove="Tools\NewFolder\**" />
+    <EmbeddedResource Remove="Tools\Paginador\**" />
     <None Remove="Tools\NewFolder\**" />
+    <None Remove="Tools\Paginador\**" />
   </ItemGroup>
 
   <ItemGroup>

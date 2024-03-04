@@ -9,10 +9,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using sigestel.Models;
 using sigestel.Tools;
-using static sigestel.Models.Paginacion;
 using ClosedXML.Excel;
 using System.Data;
-using Paginacion = sigestel.Tools.Paginacion;
+
 
 
 namespace sigestel.Controllers
@@ -27,15 +26,54 @@ namespace sigestel.Controllers
         {
             _context = context;
         }
+
+        //[HttpGet]
+        //public IActionResult Index(int Pag, int Registros, string Search)
+        //{
+        //    //instanciamos una lista de facturas
+        //    List<SutFacturas> facturas = null;
+
+        //    //Filtro de la barra de búsqueda
+        //    if (Search != null)
+        //    {
+        //        facturas = _context.SutFacturas
+        //            .Where(e => e.NombreBanco.Contains(Search)).ToList();
+        //    }
+        //    //Si no se encuentra devuelve todo
+        //    else
+        //    {
+        //        facturas = _context.SutFacturas.ToList();
+        //    }
+        //    // con esto pillamos el numero de pag y registros de la url 
+        //    string host = Request.Scheme + "://" + Request.Host.Value;
+        //    //instanciamos el array de resultados a los que se le aplica el paginador con el numero de pg,cant registros y el metodo este "Index"
+        //    object[] resultado = new Paginador<SutFacturas>().paginador(facturas, Pag , Registros , "facturas" , "factura", "Index" , host );
+
+        //    DataPaginador<SutFacturas> modelo = new DataPaginador<SutFacturas>
+        //    {
+        //        //según la calse paginador el query la devuelve en la posición 2
+        //        Lista = (List<SutFacturas>)resultado[2], //Casteamos object a sutfacturas (datos que va a mostrar)
+        //        Pagi_info = (string)resultado[0], // informacion de esos datos
+        //        Pagi_navegacion = (string)resultado[1], //botones de anterior y siguiente
+        //    };
+
+        //    return View(modelo);
+
+            
+        //}
+
+
         //En este primer método buscamos en la base de datos las facturas y podemos enseñar los registros que seleccionemos y cargarlos poco a poco
         //además de que si detecta que se ha introducido un valor en la barra de busqueda, busca por el nombre de banco introducido
-        // GET: SutFacturas
+         //GET: SutFacturas
         public async Task<IActionResult> Index(string empresaSeleccionada, string buscar, string ordenActual, int? numpag, string filtroActual, int? cantidadRegistros, string selectedBanco, string exportarExcel,string selectedCliente, string fechadesde, string fechahasta)
         {
-            // Recuperar los valores de sesión
-            //numpag = HttpContext.Session.GetInt32("Numpag");
-            //cantidadRegistros = HttpContext.Session.GetInt32("CantidadRegistros");
 
+            // Obtener la página actual de la sesión o establecerla en 1 si no hay valor en la sesión
+            int paginaActual = numpag ?? HttpContext.Session.GetInt32("Numpag") ?? 1;
+
+            // Obtener la cantidad de registros por página de la sesión o establecerla en 6 si no hay valor en la sesión
+            int registrosPorPagina = cantidadRegistros ?? HttpContext.Session.GetInt32("CantidadRegistros") ?? 6;
 
             var facturas = from SutFacturas in _context.SutFacturas select SutFacturas;
 
@@ -51,6 +89,8 @@ namespace sigestel.Controllers
             if (!String.IsNullOrEmpty(buscar))
             {
                 facturas = facturas.Where(s => s.NombreBanco!.Contains(buscar));
+                //Guardar filtro en la sesion
+                HttpContext.Session.SetString("FiltroActual", filtroActual);
 
             }
             //if para banco seleccionado en el select
@@ -92,6 +132,7 @@ namespace sigestel.Controllers
             //seleccionados por banco 
             ViewData["BancoSeleccionado"] = selectedCliente;
 
+
             switch (ordenActual)
             {
                 case "NombreDescendente":
@@ -110,9 +151,10 @@ namespace sigestel.Controllers
             cantidadRegistros = cantidadRegistros ?? 6; //de base se enseñan 6 registros a no ser que el usuario quiera más
 
 
-            //PARAEXCEL guardar pagina y vista en sesion y que se refresque cuando quiera
-            HttpContext.Session.SetInt32("Numpag", numpag ?? 1);
-            HttpContext.Session.SetInt32("CantidadRegistros", cantidadRegistros ?? 6);
+          
+
+
+
 
             var todosLosBancos = await _context.SutFacturas
                 .Select(f => f.NombreBanco)
@@ -130,74 +172,60 @@ namespace sigestel.Controllers
 
             //Variable con los registros o facturas actualmente mostradas
 
-            var facturasMostradas = await Paginacion<SutFacturas>.CrearPaginacion(facturas.AsNoTracking(), numpag ?? HttpContext.Session.GetInt32("Numpag") ?? 1, cantidadRegistros ?? HttpContext.Session.GetInt32("CantidadRegistros") ?? 6);
+            var facturasMostradas = await Paginacion<SutFacturas>.CrearPaginacion(facturas.AsNoTracking(), paginaActual, registrosPorPagina);
 
-            if (!string.IsNullOrEmpty(exportarExcel))
-            {
-                var facturasExportar = facturasMostradas.ToList();
-                return GenerarExcel("FacturasExportadas", facturasExportar);
-            }
+            // Guardar la información de la página actual y la cantidad de registros en la sesión
+            HttpContext.Session.SetInt32("Numpag", paginaActual);
+            HttpContext.Session.SetInt32("CantidadRegistros", registrosPorPagina);
 
+            //if (!string.IsNullOrEmpty(exportarExcel))
+            //{
+            //    var facturasExportar = facturasMostradas.ToList();
+            //    return GenerarExcel("FacturasExportadas", facturasExportar);
+            //}
 
-            return View(await Paginacion<SutFacturas>.CrearPaginacion(facturas.AsNoTracking(), numpag ?? 1, cantidadRegistros ?? 6));
+            ViewData["CantidadRegistros"] = registrosPorPagina;
+
+            return View(facturasMostradas);
         }
 
         // Método para exportar a Excel
-        private FileResult GenerarExcel(string nombrearchivo, List<SutFacturas> facturas)
-        {
-            int numpag = HttpContext.Session.GetInt32("Numpag") ?? 1;
-            int cantidadRegistros = HttpContext.Session.GetInt32("CantidadRegistros") ?? 6;
-
-            // Obtener solo los registros de la página actual
-            var registrosExportar = facturas.Skip((numpag - 1) * cantidadRegistros).Take(cantidadRegistros).ToList();
-
-
-            DataTable dt = new DataTable("Facturas");
-            dt.Columns.AddRange(new DataColumn[]
-            {
-             new DataColumn("NombreBanco"),
-             new DataColumn("FechaFactura"),
-             new DataColumn("IdFactura")
-            });
-
-            foreach (var facturita in registrosExportar)
-            {
-                dt.Rows.Add(facturita.NombreBanco ?? string.Empty,
-                            facturita.FechaFactura,
-                            facturita.IdFactura);
-            }
-
-            using (XLWorkbook wb = new XLWorkbook())
-            {
-                wb.Worksheets.Add(dt);
-
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    wb.SaveAs(stream);
-                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                                nombrearchivo + ".xlsx");
-                }
-            }
-        }
-
-        //SEGUNDO INDEXGET
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public async Task<ActionResult<List<SutFacturas>>> Index([FromQuery] Paginacion paginacion)
+        //private FileResult GenerarExcel(string nombrearchivo, List<SutFacturas> facturas)
         //{
-        //    var queryable = _context.SutFacturas.AsQueryable();
-        //    await HttpContext.InsertarParametrosPAginacionRespuesta(queryable, paginacion.cantidadAMostrar);
-        //metodo que recupera datos de la session
-        //[HttpPost]
-        //public IActionResult ActualizarSesion(int numpag, int cantidadRegistros)
-        //{
-        //    // Actualizar la información en la sesión
-        //    HttpContext.Session.SetInt32("Numpag", numpag);
-        //    HttpContext.Session.SetInt32("CantidadRegistros", cantidadRegistros);
+        //    int numpag = HttpContext.Session.GetInt32("Numpag") ?? 1;
+        //    int cantidadRegistros = HttpContext.Session.GetInt32("CantidadRegistros") ?? 6;
 
-        //    return Ok(); 
+        //    // Obtener solo los registros de la página actual
+        //    var registrosExportar = facturas.Skip((numpag - 1) * cantidadRegistros).Take(cantidadRegistros).ToList();
+
+
+        //    DataTable dt = new DataTable("Facturas");
+        //    dt.Columns.AddRange(new DataColumn[]
+        //    {
+        //     new DataColumn("NombreBanco"),
+        //     new DataColumn("FechaFactura"),
+        //     new DataColumn("IdFactura")
+        //    });
+
+        //    foreach (var facturita in registrosExportar)
+        //    {
+        //        dt.Rows.Add(facturita.NombreBanco ?? string.Empty,
+        //                    facturita.FechaFactura,
+        //                    facturita.IdFactura);
+        //    }
+
+        //    using (XLWorkbook wb = new XLWorkbook())
+        //    {
+        //        wb.Worksheets.Add(dt);
+
+        //        using (MemoryStream stream = new MemoryStream())
+        //        {
+        //            wb.SaveAs(stream);
+        //            return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        //                        nombrearchivo + ".xlsx");
+        //        }
+        //    }
         //}
-
 
 
         // GET: SutFacturas/Details/5
