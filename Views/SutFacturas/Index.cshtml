@@ -4,9 +4,9 @@
 <script>
     function actualizarFormulario(valor) {
         console.log("Cantidad de registros seleccionados:", valor);
-        document.forms[0].submit(); // Esto asume que es el primer formulario en la página
+        document.forms[0].submit(); 
         // Almacena el valor en la sesión
-        fetch(`/SutFacturas/Index?cantidadRegistros=${valor}`, { method: 'POST' }); // Ajusta la URL y método según tu aplicación
+        fetch(`/SutFacturas/Index?cantidadRegistros=${valor}`, { method: 'POST' });
     }
 </script>
 <div class="container my-3">
@@ -139,9 +139,7 @@
                                 @Html.DisplayFor(modelItem => item.IdFactura)
                             </td>
                             <td>
-                                <a asp-action="Edit" class="btn btn-success bi bi-pencil" asp-route-id="@item.IdFactura"></a> |
-                                <a asp-action="Details" class="btn btn-info bi bi-eye" asp-route-id="@item.IdFactura"></a> |
-                                <a asp-action="Delete" class="btn btn-outline-danger bi bi-trash" asp-route-id="@item.IdFactura"></a>
+                                <a asp-action="Details" class="btn btn-info bi bi-eye" asp-route-id="@item.IdFactura"></a>
                             </td>
                         </tr>
                     }

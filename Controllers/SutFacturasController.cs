@@ -32,6 +32,7 @@ namespace sigestel.Controllers
          //GET: SutFacturas
         public async Task<IActionResult> Index(string empresaSeleccionada, string buscar, string ordenActual, int? numpag, string filtroActual, int? cantidadRegistros, string selectedBanco, string exportarExcel,string selectedCliente, string fechadesde, string fechahasta)
         {
+            //-----------------RECUPERAR DATOS DE LA SESIÓN-----------------
 
             // Obtener la página actual de la sesión o establecerla en 1 si no hay valor en la sesión
             int paginaActual = numpag ?? HttpContext.Session.GetInt32("Numpag") ?? 1;
@@ -39,7 +40,13 @@ namespace sigestel.Controllers
             // Obtener la cantidad de registros por página de la sesión o establecerla en 6 si no hay valor en la sesión
             int registrosPorPagina = cantidadRegistros ?? HttpContext.Session.GetInt32("CantidadRegistros") ?? 6;
 
+
+            //Listado de todas las facturas de la bdd
             var facturas = from SutFacturas in _context.SutFacturas select SutFacturas;
+
+
+
+            // ------------------FILTROS--------------------------------
 
             if (buscar != null)
             {
@@ -49,6 +56,7 @@ namespace sigestel.Controllers
             {
                 buscar = filtroActual;
             }
+
             //if para nombre de bancos en la barra de búsqueda
             if (!String.IsNullOrEmpty(buscar))
             {
@@ -82,6 +90,9 @@ namespace sigestel.Controllers
                 // Comparar solo la fecha sin tener en cuenta la hora, minutos y segundos
                 facturas = facturas.Where(s => s.FechaFactura.Date >= fechaSeleccionada.Date && s.FechaFactura.Date <= fechaSeleccionada2.Date);
             }
+
+
+            //---------------------ÓRDENES DE MOSTRADO------------------------------
 
             //listados base de bancos y sus facturas
             ViewData["OrdenActual"] = ordenActual;
@@ -122,7 +133,7 @@ namespace sigestel.Controllers
 
             var todosLosClientes = await _context.SutFacturas
                .Select(f => f.TipoFactura)
-               .Distinct() //esto hace que no coja dos veces el mismo banco
+               .Distinct() //esto hace que no coja dos veces el mismo cliente
                .ToListAsync();
 
             ViewData["Bancos"] = new SelectList(todosLosBancos);
@@ -197,117 +208,6 @@ namespace sigestel.Controllers
             }
 
             return View(sutFacturas);
-        }
-
-        // GET: SutFacturas/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: SutFacturas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdFactura,NumFactura,BaseImponible,Iva,Impuesto,TotalFactura,FechaFactura,ImportePuntos,ImporteBruto,TotalDescuentos,Ciclo,TipoFactura,NombreBanco,NumCuenta,FactOtm,FechaInicio,FechaFin,Direccion,CodPostal,Poblacion,Provincia,EstadoNorma19,FechaCargo,FicheroNorma19,EnlaceGenerado,Generacion,Contabilizada,IdProceso,IdColectivo,IdClienteUsuario,Observaciones,TmPreciocoste1,TmPreciocoste2,TmPrecioventa,TmImporteacuenta,TmImportecomision,TmModoFin,TmMesesPlazo,ImportePagos,PerfilUsuario,IdAsociacionPerfilUsuario,ImportePtePago,ComentariosPagos")] SutFacturas sutFacturas)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(sutFacturas);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(sutFacturas);
-        }
-
-        // GET: SutFacturas/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var sutFacturas = await _context.SutFacturas.FindAsync(id);
-            if (sutFacturas == null)
-            {
-                return NotFound();
-            }
-            return View(sutFacturas);
-        }
-
-        // POST: SutFacturas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdFactura,NumFactura,BaseImponible,Iva,Impuesto,TotalFactura,FechaFactura,ImportePuntos,ImporteBruto,TotalDescuentos,Ciclo,TipoFactura,NombreBanco,NumCuenta,FactOtm,FechaInicio,FechaFin,Direccion,CodPostal,Poblacion,Provincia,EstadoNorma19,FechaCargo,FicheroNorma19,EnlaceGenerado,Generacion,Contabilizada,IdProceso,IdColectivo,IdClienteUsuario,Observaciones,TmPreciocoste1,TmPreciocoste2,TmPrecioventa,TmImporteacuenta,TmImportecomision,TmModoFin,TmMesesPlazo,ImportePagos,PerfilUsuario,IdAsociacionPerfilUsuario,ImportePtePago,ComentariosPagos")] SutFacturas sutFacturas)
-        {
-            if (id != sutFacturas.IdFactura)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(sutFacturas);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SutFacturasExists(sutFacturas.IdFactura))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(sutFacturas);
-        }
-
-        // GET: SutFacturas/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var sutFacturas = await _context.SutFacturas
-                .FirstOrDefaultAsync(m => m.IdFactura == id);
-            if (sutFacturas == null)
-            {
-                return NotFound();
-            }
-
-            return View(sutFacturas);
-        }
-
-        // POST: SutFacturas/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var sutFacturas = await _context.SutFacturas.FindAsync(id);
-            if (sutFacturas != null)
-            {
-                _context.SutFacturas.Remove(sutFacturas);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool SutFacturasExists(int id)
-        {
-            return _context.SutFacturas.Any(e => e.IdFactura == id);
         }
     }
 }
