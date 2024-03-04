@@ -1,6 +1,6 @@
 ﻿@using sigestel.Tools;
 @model Paginacion<SutFacturas>
-com
+
 
 @* <script>
     function actualizarFormulario(valor) {
@@ -18,7 +18,7 @@ com
         <div class="col-md-4">
             <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
                 <div class="form-group mr-2">
-                    <label for="buscar" class="mr-2">Buscar:</label>
+                    <label for="buscar" class="mr-2">Buscar por factura:</label>
                     <input type="text" id="buscar" name="buscar" value="@ViewData["FiltroActual"]" class="form-control" />
                 </div>
                 <div class="form-group mr-2">
@@ -99,10 +99,14 @@ com
                 <thead>
                     <tr>
                         <th>
-                            <a asp-action="Index" asp-route-ordenActual="@ViewData["FiltroNombre"]"
+                            <a asp-action="Index" asp-route-ordenActual="@ViewData["FiltroId"]"
                                asp-route-filtroActual="@ViewData["FiltroActual"]">
-                                Nombre
+                                Id
                             </a>
+                           
+                        </th>
+                        <th>
+                            Número de factura
                         </th>
                         <th>
                             
@@ -116,8 +120,12 @@ com
                             </a>
                         </th>
                         <th>
-                            Id
+                            Nombre
                         </th>
+                        <th>
+                            Importe total
+                        </th>
+
                         <th>
                             Opciones
                         </th>
@@ -128,7 +136,10 @@ com
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.NombreBanco)
+                                @Html.DisplayFor(modelItem => item.IdFactura)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NumFactura)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.TipoFactura)
@@ -137,7 +148,12 @@ com
                                 @Html.DisplayFor(modelItem => item.FechaFactura)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.IdFactura)
+                                @Html.DisplayFor(modelItem => item.NombreBanco)
+                    
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalFactura) €
+
                             </td>
                             <td>
                                 <a asp-action="Details" class="btn btn-info bi bi-eye" asp-route-id="@item.IdFactura"></a>

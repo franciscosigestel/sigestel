@@ -57,10 +57,10 @@ namespace sigestel.Controllers
                 buscar = filtroActual;
             }
 
-            //if para nombre de bancos en la barra de búsqueda
+            //if para num factura en la barra de búsqueda
             if (!String.IsNullOrEmpty(buscar))
             {
-                facturas = facturas.Where(s => s.NombreBanco!.Contains(buscar));
+                facturas = facturas.Where(s => s.NumFactura!.Contains(buscar));
 
             }
             //if para banco seleccionado en el select
@@ -82,6 +82,8 @@ namespace sigestel.Controllers
                 DateTime fechaSeleccionada = DateTime.Parse(fechadesde);
                 DateTime fechaSeleccionada2 = DateTime.Parse(fechahasta);
 
+                
+
                 // Obtener todas las facturas de la fecha seleccionada
                 var facturasFecha = facturas.Where(s => s.FechaFactura.Date >= fechaSeleccionada.Date && s.FechaFactura.Date <= fechaSeleccionada2.Date);
 
@@ -96,11 +98,13 @@ namespace sigestel.Controllers
             ViewData["OrdenActual"] = ordenActual;
             ViewData["FiltroActual"] = buscar;
 
-            ViewData["FiltroNombre"] = String.IsNullOrEmpty(ordenActual) ? "NombreDescendente" : "";
+            //de forma genérica la tabla ordena de forma id descendente si le pinchamos activara la forma ascendente del switch
+            ViewData["FiltroId"] = String.IsNullOrEmpty(ordenActual) ? "IdAscendente" : "IdDescendente";
+
             ViewData["FiltroFecha"] = ordenActual == "FechaAscendente" ? "FechaDescendente" : "FechaAscendente";
 
             //seleccionados por banco 
-            ViewData["BancoSeleccionado"] = selectedBanco;
+            ViewData["BancoSeleccionado"] = selectedBanco;  
 
             //seleccionados por banco 
             ViewData["BancoSeleccionado"] = selectedCliente;
@@ -108,19 +112,21 @@ namespace sigestel.Controllers
 
             switch (ordenActual)
             {
-                case "NombreDescendente":
-                    facturas = facturas.OrderByDescending(facturas => facturas.NombreBanco);
-                    break;
                 case "FechaDescendente":
                     facturas = facturas.OrderByDescending(facturas => facturas.FechaFactura);
                     break;
                 case "FechaAscendente":
                     facturas = facturas.OrderBy(facturas => facturas.FechaFactura);
                     break;
-                default:
+                case "IdAscendente":
                     facturas = facturas.OrderBy(facturas => facturas.IdFactura);
                     break;
+                case "IdDescendente":
+                default:
+                    facturas = facturas.OrderByDescending(facturas => facturas.IdFactura);
+                    break;
             }
+
             cantidadRegistros = cantidadRegistros ?? 6; //de base se enseñan 6 registros a no ser que el usuario quiera más
 
 
