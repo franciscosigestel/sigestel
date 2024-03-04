@@ -1,14 +1,15 @@
 ﻿@using sigestel.Tools;
 @model Paginacion<SutFacturas>
+com
 
-<script>
+@* <script>
     function actualizarFormulario(valor) {
         console.log("Cantidad de registros seleccionados:", valor);
         document.forms[0].submit(); 
         // Almacena el valor en la sesión
         fetch(`/SutFacturas/Index?cantidadRegistros=${valor}`, { method: 'POST' });
     }
-</script>
+</script> *@
 <div class="container my-3">
 
     <h1 class="text-center">Listado de facturas</h1>

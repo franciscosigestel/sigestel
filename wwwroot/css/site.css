@@ -54,8 +54,42 @@ body {
     overflow: hidden; /* Para que los bordes redondeados se apliquen correctamente */
 }
 
-.cardpersonalizada{
-    border-radius: 50px;
+/* Estilo personalizado para el gradiente y hover del botón de éxito */
+.btn-success {
+    background: linear-gradient(to right, #2c807b, #3ba19b);
+    border-color: #2c807b;
+}
+
+    .btn-success:hover {
+        background: linear-gradient(to right, #ffffff, #ffffff);
+        color: #2c807b;
+        border-color: #2c807b;
+    }
+
+.cardpersonalizada {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5));
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 0.5rem;
+    box-shadow: 0 0 15px rgba(44, 128, 123, 0.8);
+}
+
+.sigestelback {
+    background-image: url('../Media/bosque2.jpg');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    margin: 0;
+    padding: 0; 
+}
+
+.transparencia {
+    background: none;
 }
 
 .label-form {
@@ -64,4 +98,9 @@ body {
 }
 filtros{
     background-color: darkseagreen;
+}
+
+.h3login {
+    color: #FFF;
+    margin: 15px;
 }

@@ -13,22 +13,22 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/sigestel.styles.css" asp-append-version="true" />
 </head>
-<body class="sigestelprimario">
+<body class="sigestelback">
 
-    <div class="container mt-5 pt-5 cardpersonalizada">
+    <div class="container mt-5 pt-5 ">
         <div class="row justify-content-center">
             <div class="col-12 col-xl-4 col-md-6">
-                <div class="card">
-                    <img src="/Media/logo-reducido-nc-v1.png"/>
-                    <div class="card-header sigestelsecundario">
-                        <h4>Iniciar Sesión</h4>
+                <div class="cardpersonalizada">
+                    <img src="/Media/logo.png"/>
+                    <div class="card-header">
+                        <h3 class="h3login">Iniciar Sesión</h3>
                     </div>
                     <div class="card-body">
                         <form asp-controller="Inicio" asp-action="IniciarSesion" method="post">
                             <input class="form-control mb-3" type="text" placeholder="NIF" required name="dni"/>
                             <input class="form-control mb-3" type="password" placeholder="Contraseña" required name="clave" />
                             <div class="d-grid gap-2 mb-3">
-                                <button class="btn btn-primary sigestelprimario" type="submit">Entrar</button>
+                                <button class="btn btn-success" type="submit">Entrar</button>
                             </div>
                             @if(ViewData["Mensaje"] != null)
                             {
@@ -39,7 +39,6 @@
                                 </div>
                                 </div>
                             }
-                            ¿No tienes una cuenta? <a href="@Url.Action("Registrarse","Inicio")">Darse de alta</a>
 
                         </form>
 

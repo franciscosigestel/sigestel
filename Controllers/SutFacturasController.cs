@@ -61,8 +61,6 @@ namespace sigestel.Controllers
             if (!String.IsNullOrEmpty(buscar))
             {
                 facturas = facturas.Where(s => s.NombreBanco!.Contains(buscar));
-                //Guardar filtro en la sesion
-                HttpContext.Session.SetString("FiltroActual", filtroActual);
 
             }
             //if para banco seleccionado en el select
