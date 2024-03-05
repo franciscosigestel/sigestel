@@ -111,6 +111,7 @@ filtros{
 
 .alertoscuro{
     background-color: black;
+    color: white;
 
 
 }
@@ -130,3 +131,12 @@ filtros{
 .form-inline .btn {
     margin-top: 8px; /* Ajusta según tus necesidades para alinear con los inputs */
 }
+
+.pagination a.btn-success.ml-2.disabled {
+    background-color: #2c807b; /* Disabled button color */
+    color: #ffffff; /* Text color for disabled button */
+}
+
+.pagination a.btn-success.ml-2.active {
+    background-color: #2c807b; /* Active button color */
+    color: #ffffff; /* Text color for active button */

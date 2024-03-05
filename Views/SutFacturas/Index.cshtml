@@ -177,8 +177,9 @@
         var anteriordeshabilitado = !Model.PaginasAnteriores ? "disabled" : "";
         var siguientedeshabilitado = !Model.PaginasPosteriores ? "disabled" : "";
     }
-    <div class="row justify-content-center mt-3">
-        <nav aria-label="Page navigation example">
+    <div class="row justify-content-between mt-3">
+        <div class="col-md-8">
+        <nav aria-label="Page navigation example" class="col-md-6">
             <ul class="pagination">
         <a asp-action="Index" asp-route-ordenActual="@ViewData["OrdenActual"]"
            asp-route-numpag="@(Model.PaginaInicio - 1)" asp-route-filtroActual="@ViewData["FiltroActual"]"
@@ -200,17 +201,17 @@
 
             </ul>
         </nav>
-    </div>
-    <div class="row justify-content-center mt-3">
-                <form asp-controller="SutFacturas" asp-action="Index" method="get" class="form-inline" onsubmit="return actualizarFormulario(1, 10)">
-            <button type="submit" name="exportarExcel" value="exportarExcel">Exportar a Excel</button>
-        </form>
+        </div>
+
+        <div class="col-md-4 d-flex align-items-center justify-content-end">
+                <form asp-controller="SutFacturas" asp-action="Index" method="get" class="form-inline mr2" onsubmit="return actualizarFormulario(1, 10)">
+                <button type="submit" name="exportarExcel" value="exportarExcel" class="btn btn-primary sigestelprimario-fnt">Exportar a Excel</button>
+                </form>
              <!-- Cantidad de a mostrar -->
-       <div class="col-md-4">
          <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
             <div class="form-group mr-2">
                 <label for="cantidadRegistros" class="mr-2">Cantidad de registros:</label>
-                    <select name="cantidadRegistros" class="form-control mr-2" onchange="console.log(this.value); this.form.submit()">
+                    <select name="cantidadRegistros" class="form-control" onchange="console.log(this.value); this.form.submit()">
                         <option value="6">--</option>
                         <option value="10">10</option>
                         <option value="50">50</option>
@@ -219,7 +220,7 @@
             </div>
         </form>
         </div>
-        </div>
     </div>
 </div>
+    </div>
 
