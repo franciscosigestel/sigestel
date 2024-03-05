@@ -111,4 +111,22 @@ filtros{
 
 .alertoscuro{
     background-color: black;
+
+
+}
+
+/* Estilo para reducir el tamaño de los inputs */
+.smaller-input {
+    width: 150px; /* Puedes ajustar este valor según tus necesidades */
+}
+
+/* Alineación de los elementos en una línea */
+.form-inline .form-group {
+    display: inline-block;
+    margin-right: 10px; /* Espacio entre elementos, ajusta según tus necesidades */
+}
+
+/* Ajuste de la alineación de los botones */
+.form-inline .btn {
+    margin-top: 8px; /* Ajusta según tus necesidades para alinear con los inputs */
 }
