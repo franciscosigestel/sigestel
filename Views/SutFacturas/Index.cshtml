@@ -18,78 +18,46 @@
             </div>
         </form>
 
-        <div class="alert alert-info" role="alert">
+        <div class="alert alert-info alertoscuro" role="alert">
             Filtros activos:
+
             @if (!string.IsNullOrEmpty(ViewData["FiltroBuscar"] as string))
             {
-                <span class="badge badge-pill badge-primary">Buscar: @ViewData["FiltroBuscar"]</span>
+                <span class="badge badge-pill badge-primary">Buscar: @ViewData["FiltroBuscar"], </span>
             }
             @if (!string.IsNullOrEmpty(ViewData["FiltroEstado"] as string))
             {
-                <span class="badge badge-pill badge-primary">Estado: @ViewData["FiltroEstado"]</span>
+                <span class="badge badge-pill badge-primary">Estado: @ViewData["FiltroEstado"], </span>
             }
             @if (!string.IsNullOrEmpty(ViewData["FiltroCliente"] as string))
             {
-                <span class="badge badge-pill badge-primary">Cliente: @ViewData["FiltroCliente"]</span>
+                <span class="badge badge-pill badge-primary">Cliente: @ViewData["FiltroCliente"], </span>
             }
             @if (!string.IsNullOrEmpty(ViewData["FiltroFechaDesde"] as string))
             {
-                <span class="badge badge-pill badge-primary">Fecha Desde: @ViewData["FiltroFechaDesde"]</span>
+                <span class="badge badge-pill badge-primary">Fecha Desde: @ViewData["FiltroFechaDesde"], </span>
             }
             @if (!string.IsNullOrEmpty(ViewData["FiltroFechaHasta"] as string))
             {
-                <span class="badge badge-pill badge-primary">Fecha Hasta: @ViewData["FiltroFechaHasta"]</span>
+                <span class="badge badge-pill badge-primary">Fecha Hasta: @ViewData["FiltroFechaHasta"], </span>
             }
         </div>
     }
-
+   
     <!-- Barra de búsqueda -->
     <div class="row mb-3 justify-content-center">
         <div class="col-md-4">
             <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
                 <div class="form-group mr-2">
                     <label for="buscar" class="mr-2">Buscar por factura:</label>
-                  @*   @if (!string.IsNullOrEmpty(ViewData["FiltroBuscar"] as string))
-                    {
-                        <form asp-controller="SutFacturas" asp-action="LimpiarBusqueda" method="post">
-                            <input type="text" id="buscar" name="buscar" value="@ViewData["FiltroBuscar"]" class="form-control" />
-                            <button type="submit" class="btn btn-danger">X</button>
-                        </form>
-                    }else{
-                    <input type="text" id="buscar" name="buscar" value="@ViewData["FiltroActual"]" class="form-control" />
-                    } *@
                     <input type="text" id="buscar" name="buscar" value="@ViewData["FiltroBuscar"]" class="form-control" />
                 </div>
-                <div class="form-group mr-2">
-                    <button type="submit" value="" class="btn btn-sm sigestelprimario-fnt" /><i class="bi bi-search"></i></button>
-                </div>
-            </form>
-        </div>
-        <!-- Cantidad de a mostrar -->
-       <div class="col-md-4">
-         <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
-            <div class="form-group mr-2">
-                <label for="cantidadRegistros" class="mr-2">Cantidad de registros:</label>
-                    <select name="cantidadRegistros" class="form-control mr-2" onchange="console.log(this.value); this.form.submit()">
-                        <option value="6">--</option>
-                        <option value="10">10</option>
-                        <option value="50">50</option>
-                        <option value="100" >100</option>
-                    </select>
-            </div>
-        </form>
-        </div>
-
-        <!-- Selector de Estado -->
-        <div class="col-md-4">
-            <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
+                <!-- Estado factura -->
                 <div class="form-group mr-2">
                     <label for="cantidadRegistros" class="mr-2">Estado:</label>
-                    <select name="SelectedEstado" class="form-control mr-2" onchange="this.form.submit()">
+                    <select name="selectedEstado" class="form-control mr-2">
                         <option value="">--</option>
                         @{
-                            //aqui cogemos los text de los bancos y como coinciden con los de bdd pues le pasamos el estado
-                            // y filtramos
                             var estados = ViewData["Estados"] as SelectList;
                             foreach (var item in estados)
                             {
@@ -98,18 +66,12 @@
                         }
                     </select>
                 </div>
-            </form>
-        </div>
-
-        <div class="col-md-4">
-            <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
+                <!-- Tipo clientes -->
                 <div class="form-group mr-2">
                     <label for="cantidadRegistros" class="mr-2">Clientes</label>
-                    <select name="SelectedCliente" class="form-control mr-2" onchange="this.form.submit()">
+                    <select name="selectedCliente" class="form-control mr-2">
                         <option value="">Tipo cliente</option>
                         @{
-                            //aqui cogemos los text de los bancos y como coinciden con los de bdd pues le pasamos el banco
-                            // y filtramos
                             var clientes = ViewData["Clientes"] as SelectList;
                             foreach (var item in clientes)
                             {
@@ -118,19 +80,16 @@
                         }
                     </select>
                 </div>
-            </form>
-        </div>
 
-        <div class="col-md-5">
-            <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
                 <div class="form-group mr-2">
                     <label for="fechadesde" class="mr-2">Desde:</label>
                     <input type="date" id="fechadesde" name="fechadesde" value="@ViewData["FiltroActual"]" class="form-control" />
                     <label for="fechahasta" class="mr-2">Hasta:</label>
                     <input type="date" id="fechahasta" name="fechahasta" value="@ViewData["FiltroActual"]" class="form-control" />
                 </div>
+
                 <div class="form-group mr-2">
-                    <button type="submit" value="" class="btn btn-sm sigestelprimario-fnt" /><i class="bi bi-search"></i></button>
+                    <button type="submit" value="" class="btn btn-sm sigestelprimario-fnt"><i class="bi bi-search"></i></button>
                 </div>
             </form>
         </div>
@@ -247,7 +206,20 @@
                 <form asp-controller="SutFacturas" asp-action="Index" method="get" class="form-inline" onsubmit="return actualizarFormulario(1, 10)">
             <button type="submit" name="exportarExcel" value="exportarExcel">Exportar a Excel</button>
         </form>
-            
+             <!-- Cantidad de a mostrar -->
+       <div class="col-md-4">
+         <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
+            <div class="form-group mr-2">
+                <label for="cantidadRegistros" class="mr-2">Cantidad de registros:</label>
+                    <select name="cantidadRegistros" class="form-control mr-2" onchange="console.log(this.value); this.form.submit()">
+                        <option value="6">--</option>
+                        <option value="10">10</option>
+                        <option value="50">50</option>
+                        <option value="100" >100</option>
+                    </select>
+            </div>
+        </form>
+        </div>
         </div>
     </div>
 </div>
