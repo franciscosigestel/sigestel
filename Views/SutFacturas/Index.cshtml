@@ -1,15 +1,6 @@
 ﻿@using sigestel.Tools;
 @model Paginacion<SutFacturas>
 
-
-@* <script>
-    function actualizarFormulario(valor) {
-        console.log("Cantidad de registros seleccionados:", valor);
-        document.forms[0].submit(); 
-        // Almacena el valor en la sesión
-        fetch(`/SutFacturas/Index?cantidadRegistros=${valor}`, { method: 'POST' });
-    }
-</script> *@
 <div class="container my-3">
 
     <h1 class="text-center">Listado de facturas</h1>
@@ -26,9 +17,33 @@
                 <button type="submit" class="btn btn-danger">Limpiar Filtros</button>
             </div>
         </form>
+
+        <div class="alert alert-info" role="alert">
+            Filtros activos:
+            @if (!string.IsNullOrEmpty(ViewData["FiltroBuscar"] as string))
+            {
+                <span class="badge badge-pill badge-primary">Buscar: @ViewData["FiltroBuscar"]</span>
+            }
+            @if (!string.IsNullOrEmpty(ViewData["FiltroEstado"] as string))
+            {
+                <span class="badge badge-pill badge-primary">Estado: @ViewData["FiltroEstado"]</span>
+            }
+            @if (!string.IsNullOrEmpty(ViewData["FiltroCliente"] as string))
+            {
+                <span class="badge badge-pill badge-primary">Cliente: @ViewData["FiltroCliente"]</span>
+            }
+            @if (!string.IsNullOrEmpty(ViewData["FiltroFechaDesde"] as string))
+            {
+                <span class="badge badge-pill badge-primary">Fecha Desde: @ViewData["FiltroFechaDesde"]</span>
+            }
+            @if (!string.IsNullOrEmpty(ViewData["FiltroFechaHasta"] as string))
+            {
+                <span class="badge badge-pill badge-primary">Fecha Hasta: @ViewData["FiltroFechaHasta"]</span>
+            }
+        </div>
     }
 
-
+    <!-- Barra de búsqueda -->
     <div class="row mb-3 justify-content-center">
         <div class="col-md-4">
             <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
@@ -43,13 +58,14 @@
                     }else{
                     <input type="text" id="buscar" name="buscar" value="@ViewData["FiltroActual"]" class="form-control" />
                     } *@
-                    <input type="text" id="buscar" name="buscar" value="@ViewData["FiltroActual"]" class="form-control" />
+                    <input type="text" id="buscar" name="buscar" value="@ViewData["FiltroBuscar"]" class="form-control" />
                 </div>
                 <div class="form-group mr-2">
                     <button type="submit" value="" class="btn btn-sm sigestelprimario-fnt" /><i class="bi bi-search"></i></button>
                 </div>
             </form>
         </div>
+        <!-- Cantidad de a mostrar -->
        <div class="col-md-4">
          <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
             <div class="form-group mr-2">
@@ -63,6 +79,8 @@
             </div>
         </form>
         </div>
+
+        <!-- Selector de Estado -->
         <div class="col-md-4">
             <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
                 <div class="form-group mr-2">

@@ -276,14 +276,6 @@ namespace sigestel.Controllers
             return RedirectToAction("Index");
         }
 
-        //[HttpPost]
-        //public IActionResult LimpiarBusqueda()
-        //{
-        //    // Elimina el de buscar
-        //    HttpContext.Session.Remove("FiltroBuscar");
-        //    // Redirige a la acción principal
-        //    return RedirectToAction("Index");
-        //}
 
         // GET: SutFacturas/Details/5
         public async Task<IActionResult> Details(int? id)
