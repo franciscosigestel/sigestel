@@ -30,7 +30,7 @@ namespace sigestel.Controllers
         //En este primer método buscamos en la base de datos las facturas y podemos enseñar los registros que seleccionemos y cargarlos poco a poco
         //además de que si detecta que se ha introducido un valor en la barra de busqueda, busca por el nombre de banco introducido
          //GET: SutFacturas
-        public async Task<IActionResult> Index(string empresaSeleccionada, string buscar, string ordenActual, int? numpag, string filtroActual, int? cantidadRegistros, string selectedBanco, string exportarExcel,string selectedCliente, string fechadesde, string fechahasta)
+        public async Task<IActionResult> Index(string empresaSeleccionada, string buscar, string ordenActual, int? numpag, string filtroActual, int? cantidadRegistros, string selectedEstado, string exportarExcel,string selectedCliente, string fechadesde, string fechahasta)
         {
             //-----------------RECUPERAR DATOS DE LA SESIÓN-----------------
 
@@ -47,14 +47,18 @@ namespace sigestel.Controllers
 
 
             // ------------------FILTROS--------------------------------
-
-            if (buscar != null)
+            //si no hay nigun filtro activo se muestra el listado de forma natural pero si hay filtro...
+            if (buscar != null || selectedEstado != null || selectedCliente != null || (!String.IsNullOrEmpty(fechadesde) && !String.IsNullOrEmpty(fechahasta)))
             {
-                numpag = 1;
+                numpag = 1; // Resetear la página a 1 si se aplican filtros
             }
             else
             {
-                buscar = filtroActual;
+                // Usar filtros de la sesión si no se proporcionan nuevos filtros
+                buscar = HttpContext.Session.GetString("FiltroBuscar") ?? filtroActual;
+                selectedEstado = HttpContext.Session.GetString("FiltroEstado") ?? selectedEstado;
+                selectedCliente = HttpContext.Session.GetString("FiltroCliente") ?? selectedCliente;
+               
             }
 
             //if para num factura en la barra de búsqueda
@@ -64,9 +68,9 @@ namespace sigestel.Controllers
 
             }
             //if para banco seleccionado en el select
-            if (!String.IsNullOrEmpty(selectedBanco))
+            if (!String.IsNullOrEmpty(selectedEstado))
             {
-                facturas = facturas.Where(s => s.NombreBanco == selectedBanco);
+                facturas = facturas.Where(s => s.EstadoNorma19 == selectedEstado);
             }
 
             //if para cliente seleccionado en el select
@@ -104,7 +108,7 @@ namespace sigestel.Controllers
             ViewData["FiltroFecha"] = ordenActual == "FechaAscendente" ? "FechaDescendente" : "FechaAscendente";
 
             //seleccionados por banco 
-            ViewData["BancoSeleccionado"] = selectedBanco;  
+            ViewData["EstadoSeleccionado"] = selectedEstado;  
 
             //seleccionados por banco 
             ViewData["BancoSeleccionado"] = selectedCliente;
@@ -130,8 +134,8 @@ namespace sigestel.Controllers
             cantidadRegistros = cantidadRegistros ?? 6; //de base se enseñan 6 registros a no ser que el usuario quiera más
 
 
-            var todosLosBancos = await _context.SutFacturas
-                .Select(f => f.NombreBanco)
+            var todosLosEstados = await _context.SutFacturas
+                .Select(f => f.EstadoNorma19)
                 .Distinct() //esto hace que no coja dos veces el mismo banco
                 .ToListAsync();
 
@@ -140,7 +144,7 @@ namespace sigestel.Controllers
                .Distinct() //esto hace que no coja dos veces el mismo cliente
                .ToListAsync();
 
-            ViewData["Bancos"] = new SelectList(todosLosBancos);
+            ViewData["Estados"] = new SelectList(todosLosEstados);
             ViewData["Clientes"] = new SelectList(todosLosClientes);
 
 
@@ -148,9 +152,53 @@ namespace sigestel.Controllers
 
             var facturasMostradas = await Paginacion<SutFacturas>.CrearPaginacion(facturas.AsNoTracking(), paginaActual, registrosPorPagina);
 
-            // Guardar la información de la página actual y la cantidad de registros en la sesión
+            // Guardar la información de la página actual y la cantidad de registros en la sesión Y FILTROS TAMBIÉN
             HttpContext.Session.SetInt32("Numpag", paginaActual);
             HttpContext.Session.SetInt32("CantidadRegistros", registrosPorPagina);
+            //---------------------GUARDAR FILTROS EN SESIÓN------------------------------
+
+
+            if (!String.IsNullOrEmpty(buscar))
+            {
+                HttpContext.Session.SetString("FiltroBuscar", buscar);
+            }
+            else
+            {
+                HttpContext.Session.Remove("FiltroBuscar");
+            }
+
+            if (!String.IsNullOrEmpty(selectedEstado))
+            {
+                HttpContext.Session.SetString("FiltroEstado", selectedEstado);
+            }
+            else
+            {
+                HttpContext.Session.Remove("FiltroEstado");
+            }
+
+            if (!String.IsNullOrEmpty(selectedCliente))
+            {
+                HttpContext.Session.SetString("FiltroCliente", selectedCliente);
+            }
+            else
+            {
+                HttpContext.Session.Remove("FiltroCliente");
+            }
+
+            if (!String.IsNullOrEmpty(fechadesde) && !String.IsNullOrEmpty(fechahasta))
+            {
+                DateTime fechaSeleccionada = DateTime.Parse(fechadesde);
+                DateTime fechaSeleccionada2 = DateTime.Parse(fechahasta);
+
+                HttpContext.Session.SetString("FiltroFechaDesde", fechaSeleccionada.ToString("yyyy-MM-dd"));
+                HttpContext.Session.SetString("FiltroFechaHasta", fechaSeleccionada2.ToString("yyyy-MM-dd"));
+            }
+            else
+            {
+                HttpContext.Session.Remove("FiltroFechaDesde");
+                HttpContext.Session.Remove("FiltroFechaHasta");
+            }
+            //-------------------MÉTODO EXCEL----------------------------
 
             if (!string.IsNullOrEmpty(exportarExcel))
             {
@@ -160,6 +208,7 @@ namespace sigestel.Controllers
 
             ViewData["CantidadRegistros"] = registrosPorPagina;
 
+            //devolver las facturas
             return View(facturasMostradas);
         }
 

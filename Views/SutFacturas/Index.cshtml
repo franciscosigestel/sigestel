@@ -42,14 +42,14 @@
         <div class="col-md-4">
             <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
                 <div class="form-group mr-2">
-                    <label for="cantidadRegistros" class="mr-2">Bancos:</label>
-                    <select name="SelectedBanco" class="form-control mr-2" onchange="this.form.submit()">
-                        <option value="">Todos los bancos</option>
+                    <label for="cantidadRegistros" class="mr-2">Estado:</label>
+                    <select name="SelectedEstado" class="form-control mr-2" onchange="this.form.submit()">
+                        <option value="">--</option>
                         @{
-                            //aqui cogemos los text de los bancos y como coinciden con los de bdd pues le pasamos el banco 
+                            //aqui cogemos los text de los bancos y como coinciden con los de bdd pues le pasamos el estado
                             // y filtramos
-                            var bancos = ViewData["Bancos"] as SelectList;
-                            foreach (var item in bancos)
+                            var estados = ViewData["Estados"] as SelectList;
+                            foreach (var item in estados)
                             {
                                 <option value="@item.Text">@item.Text</option>
                             }
@@ -127,6 +127,10 @@
                         </th>
 
                         <th>
+                            Estado
+                        </th>
+
+                        <th>
                             Opciones
                         </th>
                     </tr>
@@ -153,6 +157,10 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.TotalFactura) €
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EstadoNorma19) 
 
                             </td>
                             <td>
