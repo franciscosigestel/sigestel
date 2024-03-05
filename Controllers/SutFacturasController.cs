@@ -198,6 +198,15 @@ namespace sigestel.Controllers
                 HttpContext.Session.Remove("FiltroFechaDesde");
                 HttpContext.Session.Remove("FiltroFechaHasta");
             }
+
+            //REFLEJAR FILTROS EN LOS INPUTS O SELECTS 
+            // Luego, puedes agregar estas líneas para reflejar los valores de los filtros en las vistas.
+            ViewData["FiltroBuscar"] = HttpContext.Session.GetString("FiltroBuscar");
+            ViewData["FiltroEstado"] = HttpContext.Session.GetString("FiltroEstado");
+            ViewData["FiltroCliente"] = HttpContext.Session.GetString("FiltroCliente");
+            ViewData["FiltroFechaDesde"] = HttpContext.Session.GetString("FiltroFechaDesde");
+            ViewData["FiltroFechaHasta"] = HttpContext.Session.GetString("FiltroFechaHasta");
+
             //-------------------MÉTODO EXCEL----------------------------
 
             if (!string.IsNullOrEmpty(exportarExcel))
@@ -219,16 +228,25 @@ namespace sigestel.Controllers
             DataTable dt = new DataTable("Facturas");
             dt.Columns.AddRange(new DataColumn[]
             {
-                new DataColumn("NombreBanco"),
-                new DataColumn("FechaFactura"),
-                new DataColumn("IdFactura")
+                new DataColumn("Id"),
+                new DataColumn("Num_fac"),
+                new DataColumn("Cliente"),
+                new DataColumn("Fecha"),
+                new DataColumn("Nombre"),
+                new DataColumn("Importe"),
+                new DataColumn("Estado")
             });
 
             foreach (var facturita in facturas)
             {
-                dt.Rows.Add(facturita.NombreBanco ?? string.Empty,
+                dt.Rows.Add(facturita.IdFactura,
                             facturita.FechaFactura,
-                            facturita.IdFactura);
+                            facturita.TipoFactura,
+                             facturita.FechaFactura,
+                              facturita.NombreBanco,
+                               facturita.TotalFactura,
+                               facturita.EstadoNorma19
+                            );
             }
 
             using (XLWorkbook wb = new XLWorkbook())
@@ -244,6 +262,19 @@ namespace sigestel.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult LimpiarFiltros()
+        {
+            // Elimina todos los filtros de la sesión
+            HttpContext.Session.Remove("FiltroBuscar");
+            HttpContext.Session.Remove("FiltroEstado");
+            HttpContext.Session.Remove("FiltroCliente");
+            HttpContext.Session.Remove("FiltroFechaDesde");
+            HttpContext.Session.Remove("FiltroFechaHasta");
+
+            // Redirige a la acción principal
+            return RedirectToAction("Index");
+        }
 
         // GET: SutFacturas/Details/5
         public async Task<IActionResult> Details(int? id)

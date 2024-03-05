@@ -14,6 +14,21 @@
 
     <h1 class="text-center">Listado de facturas</h1>
 
+
+    @if (!string.IsNullOrEmpty(ViewData["FiltroBuscar"] as string) ||
+    !string.IsNullOrEmpty(ViewData["FiltroEstado"] as string) ||
+    !string.IsNullOrEmpty(ViewData["FiltroCliente"] as string) ||
+    !string.IsNullOrEmpty(ViewData["FiltroFechaDesde"] as string) ||
+    !string.IsNullOrEmpty(ViewData["FiltroFechaHasta"] as string))
+    {
+        <form asp-controller="SutFacturas" asp-action="LimpiarFiltros" method="post">
+            <div class="text-right mb-2">
+                <button type="submit" class="btn btn-danger">Limpiar Filtros</button>
+            </div>
+        </form>
+    }
+
+
     <div class="row mb-3 justify-content-center">
         <div class="col-md-4">
             <form asp-controller="SutFacturas" asp-action="Index" class="form-inline">
